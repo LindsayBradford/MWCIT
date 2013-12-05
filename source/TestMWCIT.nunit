@@ -1,0 +1,6 @@
+﻿<NUnitProject>
+  <Settings activeconfig="Default" processModel="Default" domainUsage="Default" appbase="C:\Data\ARI Senior Software Engineer\MWCIT\06.SoftwareDevelopment\MWCIT\source" />
+  <Config name="Default" binpathtype="Auto" runtimeFramework="v0.0">
+    <assembly path="Griffith.Ari.Launcher.Test\bin\x86\Release\Griffith.Ari.Launcher.Test.dll" />
+  </Config>
+</NUnitProject>
