@@ -4,9 +4,9 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 
 #define MyShortAppName "MWCIT"
-#define MyLongAppName "Murrumbidgee Condition Indicator Tool"
+#define MyLongAppName "Murrumbidgee Wetlands Condition Indicator Tool"
 
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "Australia Rivers Institute, Griffith University"
 #define MyAppURL "http://www.griffith.edu.au/environment-planning-architecture/australian-rivers-institute"
 
