@@ -71,7 +71,7 @@ Public Class TestExternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testValidGetShortName()
+  Public Sub GetShortName_ValidBridge_ValidShortName()
     Assert.AreEqual(
       "VALID",
       _validBridgeState.bridge.GetShortName()
@@ -79,7 +79,7 @@ Public Class TestExternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testInvalidGetShortName()
+  Public Sub GetShortName_InvalidBridge_DefaultShortName()
     Assert.AreEqual(
       _invalidBridgeState.bridge.GetShortName(),
       _viewConfig.DefaultShortName
@@ -87,7 +87,7 @@ Public Class TestExternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testValidGetDescription()
+  Public Sub GetDescription_ValidBridge_ValidDescription()
     Assert.AreEqual(
       _validBridgeState.bridge.GetDescription(),
       "Valid Null Launcher"
@@ -95,7 +95,7 @@ Public Class TestExternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testInvalidGetDescription()
+  Public Sub GetDescription_InvalidBridge_DefaultDescription()
     Assert.AreEqual(
       _viewConfig.DefaultDescription,
       _invalidBridgeState.bridge.GetDescription()
@@ -103,7 +103,7 @@ Public Class TestExternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testValidGetIcon()
+  Public Sub GetIcon_ValidBridge_ValidIcon()
 
     Dim bridgeIcon = _validBridgeState.bridge.GetIcon()
     Dim embeddedIcon = AssemblyUtiityCollection.RetrieveEmbeddedImage("Info.png")
@@ -115,7 +115,7 @@ Public Class TestExternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testInvalidGetIcon()
+  Public Sub GetIcon_InvalidBridge_DefaultIcon()
 
     Dim bridgeIcon = _invalidBridgeState.bridge.GetIcon()
     Dim embeddedIcon = _viewConfig.DefaultIcon

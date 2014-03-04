@@ -46,7 +46,7 @@ Public Class TestInternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testValidGetShortName()
+  Public Sub GetShortName_ValidBridge_ValidShortName()
     Assert.AreEqual(
       "About",
       _internalConfigBridge.GetShortName("About")
@@ -54,7 +54,7 @@ Public Class TestInternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testInvalidGetShortName()
+  Public Sub GetShortName_InvalidBridge_DefaultShortName()
     Assert.AreEqual(
       _internalConfigBridge.GetShortName("Invalid"),
       ""
@@ -62,7 +62,7 @@ Public Class TestInternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testValidGetDescription()
+  Public Sub GetDescription_ValidBridge_ValidDescription()
     Assert.AreEqual(
       _internalConfigBridge.GetDescription("About"),
       "About the Murrumbidgee Wetland Condition Indicator Tool"
@@ -70,7 +70,7 @@ Public Class TestInternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testInvalidGetDescription()
+  Public Sub GetDescription_InvalidBridge_DefaultDescription()
     Assert.AreEqual(
       _internalConfigBridge.GetDescription("Invalid"),
       ""
@@ -78,7 +78,7 @@ Public Class TestInternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testValidGetIcon()
+  Public Sub GetIcon_ValidBridge_ValidIcon()
 
     Dim bridgeIcon = _internalConfigBridge.GetIcon("About")
     Dim embeddedIcon = _viewConfig.DefaultIcon
@@ -90,7 +90,7 @@ Public Class TestInternalConfigBridge
   End Sub
 
   <Test()>
-  Public Sub testInvalidGetIcon()
+  Public Sub GetIcon_InvalidBridge_DefaultIcon()
     Assert.AreEqual(
       _internalConfigBridge.GetIcon("Invalid"),
       Nothing

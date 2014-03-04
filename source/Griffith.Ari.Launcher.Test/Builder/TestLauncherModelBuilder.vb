@@ -24,7 +24,7 @@ Public Class TestLauncherModelBuilder
 
   Dim _builder As ILauncherModelBuilder
 
-  Dim _actionViewMock As IInternalLaunchActionView
+  Dim _fakeActionView As IInternalLaunchActionView
 
   Private Shared _viewAssembly = Assembly.GetExecutingAssembly
   Private Shared _viewConfig = New TestLauncherViewConfig
@@ -33,8 +33,8 @@ Public Class TestLauncherModelBuilder
   Public Sub TestFixtureSetup()
     _builder = New LauncherModelBuilder(_viewAssembly, _viewConfig)
 
-    _actionViewMock = Substitute.For(Of IInternalLaunchActionView)()
-    _actionViewMock.When(
+    _fakeActionView = Substitute.For(Of IInternalLaunchActionView)()
+    _fakeActionView.When(
       Sub(x) x.Show()
     ).Do(
       Sub(x) _launchResult = LAUNCH_RESULT.VIEW_SHOWN
@@ -49,44 +49,43 @@ Public Class TestLauncherModelBuilder
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testInNothingAssemblyConstructor()
+  Public Sub Constructor_MissingAssembly_ArgumentException()
     Dim builder = New LauncherModelBuilder(Nothing, _viewConfig)
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testInNothingConfigConstructor()
+  Public Sub Constructor_MissingConfigFile_ArgumentException()
     Dim builder = New LauncherModelBuilder(_viewAssembly, Nothing)
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testInNothingBuildExternalModel()
+  Public Sub BuildExternalModel_MissingConfigFile_ArgumentException()
     _builder.BuildExternalModel(Nothing)
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testInNothingKeyBuildInternalModel()
-    _builder.BuildInternaModel(Nothing, _actionViewMock)
+  Public Sub BuildInternalModel_MissingLaunchKey_ArgumentException()
+    _builder.BuildInternaModel(Nothing, _fakeActionView)
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testInNothingActionViewBuildInternalModel()
+  Public Sub BuildInternalModel_MissingLaunchActionView_ArgumentException()
     _builder.BuildInternaModel("About", Nothing)
   End Sub
 
   <Test()>
-  Public Sub testSuccessfulBuildInternalModel()
-    Dim model = _builder.BuildInternaModel("About", _actionViewMock)
-
-    Assert.AreEqual(
-      LAUNCH_RESULT.UNTESTED,
-      _launchResult
-    )
-
+  Public Sub LaunchAction_ValidInternalModel_IsInternalLaunchAction()
+    Dim model = _builder.BuildInternaModel("About", _fakeActionView)
     Assert.IsInstanceOf(Of InternalLaunchAction)(model.LaunchAction)
+  End Sub
+
+  <Test()>
+  Public Sub Launch_InternalModel_ViewShown()
+    Dim model = _builder.BuildInternaModel("About", _fakeActionView)
 
     model.LaunchAction.Launch()
 
@@ -94,11 +93,10 @@ Public Class TestLauncherModelBuilder
       LAUNCH_RESULT.VIEW_SHOWN,
       _launchResult
     )
-
   End Sub
 
   <Test()>
-  Public Sub testSuccessfulBuildExternalModel()
+  Public Sub LaunchAction_ValidExternalModel_IsExternalLaunchAction()
     Dim configFilePath =
     AssemblyUtiityCollection.UnpackResource(
       _viewAssembly,
@@ -112,7 +110,7 @@ Public Class TestLauncherModelBuilder
   End Sub
 
   <Test()>
-  Public Sub testUnsuccessfulBuildExternalModel()
+  Public Sub LaunchAction_InvalidExternalModel_IsInternalLaunchAction()
     Dim configFilePath =
     AssemblyUtiityCollection.UnpackResource(
       _viewAssembly,

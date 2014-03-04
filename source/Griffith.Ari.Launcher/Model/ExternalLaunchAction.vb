@@ -28,7 +28,7 @@ Public Class ExternalLaunchAction
   Public Sub New(ByVal action As String, ByVal workingDirectory As String)
     If workingDirectory Is Nothing OrElse workingDirectory.Equals("") Then
       Throw New ArgumentException(
-        "Empty working directoey supplied to Constructor."
+        "Empty working directory supplied to Constructor."
       )
     End If
 
@@ -36,6 +36,13 @@ Public Class ExternalLaunchAction
       _action = action
       _workingDirectory = workingDirectory
     End With
+
+    If Not isValidAction() Then
+      Throw New ArgumentException(
+        String.Format("Invalid Action '{0}' supplied to constructor.", _action)
+      )
+    End If
+
   End Sub
 
   ''' <summary>
@@ -49,17 +56,13 @@ Public Class ExternalLaunchAction
       )
     End If
 
-    If _action Is Nothing Then Return
-
     Directory.SetCurrentDirectory(_workingDirectory)
     Process.Start(_action)
   End Sub
 
   Private Function isValidAction() As Boolean
     ' An action with value of Nothing is interpreted as a valid 'do nothing'action
-    If _action Is Nothing Then Return True
-
-    If _action.Equals("") Then Return False
+    If _action Is Nothing OrElse _action.Equals("") Then Return False
 
     ' Mimics .NET Framework 4.5 removal of support for URLs:
     ' http://msdn.microsoft.com/en-us/library/h6ak8zt5(v=vs.110).aspx

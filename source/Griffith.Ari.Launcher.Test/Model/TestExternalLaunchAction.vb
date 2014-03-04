@@ -17,12 +17,12 @@ Imports Griffith.Ari.Launcher.View
 <TestFixture(), Category("Unit")>
 Public Class TestExternalLaunchAction
 
-  Private launcher As ExternalLaunchAction
+  Private _launcher As ExternalLaunchAction
 
   <SetUp()>
   Public Sub Setup()
 
-    launcher = Nothing
+    _launcher = Nothing
 
   End Sub
 
@@ -32,43 +32,42 @@ Public Class TestExternalLaunchAction
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testURLLaunchAttempt()
+  Public Sub Launch_URLasAction_ArgumentException()
 
-    launcher = New ExternalLaunchAction("http://127.0.0.1/", FileUtilityCollection.GetTempPath)
+    _launcher = New ExternalLaunchAction("http://127.0.0.1/", FileUtilityCollection.GetTempPath)
 
-    launcher.Launch()
-
-  End Sub
-
-  <Test()>
-  Public Sub testNothingActionLaunchAttempt()
-
-    launcher = New ExternalLaunchAction(Nothing, FileUtilityCollection.GetTempPath)
-
-    launcher.Launch()
+    _launcher.Launch()
 
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testNothingWorkingDirectoryAttempt()
-    launcher = New ExternalLaunchAction(Nothing, Nothing)
+  Public Sub Constructor_NoAction_ArgumentException()
+
+    _launcher = New ExternalLaunchAction(Nothing, FileUtilityCollection.GetTempPath)
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testEmptyWorkingDirectoryAttempt()
-    launcher = New ExternalLaunchAction(Nothing, "")
+  Public Sub Constructor_EmptyAction_ArgumentException()
+
+    _launcher = New ExternalLaunchAction("", FileUtilityCollection.GetTempPath)
+
+    _launcher.Launch()
+
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testEmptyActionLaunchAttempt()
-
-    launcher = New ExternalLaunchAction("", FileUtilityCollection.GetTempPath)
-
-    launcher.Launch()
-
+  Public Sub Constructor_NoWorkingDirectory_ArgumentException()
+    _launcher = New ExternalLaunchAction(Nothing, Nothing)
   End Sub
+
+  <Test()>
+  <ExpectedException(GetType(ArgumentException))>
+  Public Sub Constructor_EmptyWorkingDirectory_ArgumentException()
+    _launcher = New ExternalLaunchAction(Nothing, "")
+  End Sub
+
 End Class
 

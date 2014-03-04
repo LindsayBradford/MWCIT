@@ -51,7 +51,7 @@ Public Class TestLauncherSetBuilder
   End Sub
 
   <Test()>
-  Public Sub testInternalOnlyBuild()
+  Public Sub BuildFrom_ExecutingAssembly_SetCountIs1()
 
     _launcherSetBuilder = New LauncherSetBuilder()
 
@@ -70,7 +70,7 @@ Public Class TestLauncherSetBuilder
   End Sub
 
   <Test()>
-  Public Sub testExternalBuild()
+  Public Sub BuildFrom_ValidBuildConfig_SetCountIs3()
 
     _paths.baseLaunchDirectory =
       String.Format(
@@ -146,7 +146,7 @@ Public Class TestLauncherSetBuilder
   End Sub
 
   <Test()>
-  Public Sub testInvalidDirectoryBuild()
+  Public Sub BuildFrom_InvalidBuildConfig_SetCountIs1()
 
     _launcherSetBuilder = New LauncherSetBuilder()
 
@@ -166,7 +166,7 @@ Public Class TestLauncherSetBuilder
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testNothingForAssemblyBuild()
+  Public Sub BuildFrom_InvalidAssembly_ArgumentException()
 
     _launcherSetBuilder = New LauncherSetBuilder()
 

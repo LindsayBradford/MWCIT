@@ -24,14 +24,14 @@ Public Class TestInternalLaunchAction
 
   Private _launchResult As LAUNCH_RESULT
 
-  Private _actionViewMock As IInternalLaunchActionView
+  Private _fakeActionView As IInternalLaunchActionView
   Private _launcher As InternalLaunchAction
 
   <TestFixtureSetUp()>
   Public Sub TestFixtureSetup()
 
-    _actionViewMock = Substitute.For(Of IInternalLaunchActionView)()
-    _actionViewMock.When(
+    _fakeActionView = Substitute.For(Of IInternalLaunchActionView)()
+    _fakeActionView.When(
       Sub(x) x.Show()
     ).Do(
       Sub(x) _launchResult = LAUNCH_RESULT.VIEW_SHOWN
@@ -47,24 +47,18 @@ Public Class TestInternalLaunchAction
 
   End Sub
 
-
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testNothingActionViewInitialisation()
+  Public Sub Constructor_NoActionView_ArgumentException()
 
     _launcher = New InternalLaunchAction(Nothing)
 
   End Sub
 
   <Test()>
-  Public Sub testActionLaunch()
+  Public Sub Launch_ValidFakeView_ViewShown()
 
-    _launcher = New InternalLaunchAction(_actionViewMock)
-
-    Assert.AreEqual(
-      LAUNCH_RESULT.UNTESTED,
-      _launchResult
-    )
+    _launcher = New InternalLaunchAction(_fakeActionView)
 
     _launcher.Launch()
 
@@ -73,7 +67,5 @@ Public Class TestInternalLaunchAction
       _launchResult
     )
   End Sub
-
-
 End Class
 

@@ -17,18 +17,18 @@ Imports Griffith.Ari.Launcher.View
 <TestFixture(), Category("Unit")>
 Public Class TestLauncherPresenter
 
-  Private _viewMock As ILauncherView
+  Private _fakeLauncherView As ILauncherView
 
-  Private _internalModelMock As IInternalLauncherModel
-  Private _externalModelMock As IExternalLauncherModel
+  Private _fakeInternalModel As IInternalLauncherModel
+  Private _fakeExternalModel As IExternalLauncherModel
 
-  Private _internalLaunchActionMock As ILaunchAction
-  Private _externalLaunchActionMock As ILaunchAction
+  Private _fakeInternalLaunchAction As ILaunchAction
+  Private _fakeExternalLaunchAction As ILaunchAction
 
   Private _errorLaunchAction As ExternalLaunchAction
 
-  Private _errorViewMock As ILaunchActionErrorView
-  Private _securityViewMock As ILaunchActionSecurityErrorView
+  Private _fakeErrorView As ILaunchActionErrorView
+  Private _fakeSecurityView As ILaunchActionSecurityErrorView
 
   Private Enum LAUNCH_RESULT
     UNTESTED = 0
@@ -47,40 +47,40 @@ Public Class TestLauncherPresenter
     _launcherPresenter = Nothing
     _launchResult = LAUNCH_RESULT.UNTESTED
 
-    _viewMock = Substitute.For(Of ILauncherView)()
-    _viewMock.ShortName.Returns("testViewShortName")
+    _fakeLauncherView = Substitute.For(Of ILauncherView)()
+    _fakeLauncherView.ShortName.Returns("testViewShortName")
 
-    _internalLaunchActionMock = Substitute.For(Of ILaunchAction)()
-    _internalLaunchActionMock.When(
+    _fakeInternalLaunchAction = Substitute.For(Of ILaunchAction)()
+    _fakeInternalLaunchAction.When(
       Sub(x) x.Launch()
     ).Do(
       Sub(x) _launchResult = LAUNCH_RESULT.INTERNAL_ACTION_LAUNCHED
     )
 
-    _internalModelMock = Substitute.For(Of IInternalLauncherModel)()
-    _internalModelMock.ShortName.Returns("testInternalModelShortName")
-    _internalModelMock.LaunchAction.Returns(_internalLaunchActionMock)
+    _fakeInternalModel = Substitute.For(Of IInternalLauncherModel)()
+    _fakeInternalModel.ShortName.Returns("testInternalModelShortName")
+    _fakeInternalModel.LaunchAction.Returns(_fakeInternalLaunchAction)
 
-    _externalLaunchActionMock = Substitute.For(Of ILaunchAction)()
-    _externalLaunchActionMock.When(
+    _fakeExternalLaunchAction = Substitute.For(Of ILaunchAction)()
+    _fakeExternalLaunchAction.When(
       Sub(x) x.Launch()
     ).Do(
       Sub(x) _launchResult = LAUNCH_RESULT.EXTERNAL_ACTION_LAUNCHED
     )
 
-    _externalModelMock = Substitute.For(Of IExternalLauncherModel)()
-    _externalModelMock.ShortName.Returns("testExternalModelShortName")
-    _externalModelMock.LaunchAction.Returns(_externalLaunchActionMock)
+    _fakeExternalModel = Substitute.For(Of IExternalLauncherModel)()
+    _fakeExternalModel.ShortName.Returns("testExternalModelShortName")
+    _fakeExternalModel.LaunchAction.Returns(_fakeExternalLaunchAction)
 
-    _errorViewMock = Substitute.For(Of ILaunchActionErrorView)()
-    _errorViewMock.When(
+    _fakeErrorView = Substitute.For(Of ILaunchActionErrorView)()
+    _fakeErrorView.When(
       Sub(x) x.Show()
     ).Do(
       Sub(x) _launchResult = LAUNCH_RESULT.ERROR_MESSAGE_SHOWN
     )
 
-    _securityViewMock = Substitute.For(Of ILaunchActionSecurityErrorView)()
-    _securityViewMock.When(
+    _fakeSecurityView = Substitute.For(Of ILaunchActionSecurityErrorView)()
+    _fakeSecurityView.When(
       Sub(x) x.Show()
     ).Do(
       Sub(x) _launchResult = LAUNCH_RESULT.SECURITY_MESSAGE_SHOWN
@@ -90,70 +90,70 @@ Public Class TestLauncherPresenter
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testNothingInternalLaunchViewConstructor()
-    _launcherPresenter = New LauncherPresenter(Nothing, _internalModelMock)
+  Public Sub InternalConstructor_MissingParameter_ArgumentException1()
+    _launcherPresenter = New LauncherPresenter(Nothing, _fakeInternalModel)
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testNothingInternalLaunchModelConstructor()
-    _launcherPresenter = New LauncherPresenter(_viewMock, Nothing)
+  Public Sub InternalConstructor_MissingParameter_ArgumentException2()
+    _launcherPresenter = New LauncherPresenter(_fakeLauncherView, Nothing)
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testNothingExternalLaunchViewConstructor()
-    _launcherPresenter = New LauncherPresenter(Nothing, _externalModelMock, _errorViewMock, _securityViewMock)
+  Public Sub ExternalConstructor_MissingParameter_ArgumentException1()
+    _launcherPresenter = New LauncherPresenter(Nothing, _fakeExternalModel, _fakeErrorView, _fakeSecurityView)
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testNothingExternalLaunchModelConstructor()
-    _launcherPresenter = New LauncherPresenter(_viewMock, Nothing, _errorViewMock, _securityViewMock)
+  Public Sub ExternalConstructor_MissingParameter_ArgumentException2()
+    _launcherPresenter = New LauncherPresenter(_fakeLauncherView, Nothing, _fakeErrorView, _fakeSecurityView)
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testNothingErrorViewConstructor()
-    _launcherPresenter = New LauncherPresenter(_viewMock, _externalModelMock, Nothing, _securityViewMock)
+  Public Sub ExternalConstructor_MissingParameter_ArgumentException3()
+    _launcherPresenter = New LauncherPresenter(_fakeLauncherView, _fakeExternalModel, Nothing, _fakeSecurityView)
   End Sub
 
   <Test()>
   <ExpectedException(GetType(ArgumentException))>
-  Public Sub testNothingSecurityErrorViewConstructor()
-    _launcherPresenter = New LauncherPresenter(_viewMock, _externalModelMock, _errorViewMock, Nothing)
+  Public Sub ExternalConstructor_MissingParameter_ArgumentException4()
+    _launcherPresenter = New LauncherPresenter(_fakeLauncherView, _fakeExternalModel, _fakeErrorView, Nothing)
   End Sub
 
   <Test()>
-  Public Sub testSuccessfulExternalLaunch()
+  Public Sub LauncherFired_ValidExternalLauncherPresenter_ActionLaunched()
 
     ' Passing in a URL will see Process.Start() returning nothing without throwing an exception.
 
-    _launcherPresenter = New LauncherPresenter(_viewMock, _externalModelMock, _errorViewMock, _securityViewMock)
+    _launcherPresenter = New LauncherPresenter(_fakeLauncherView, _fakeExternalModel, _fakeErrorView, _fakeSecurityView)
 
     ' See: http://programmaticallyspeaking.com/nsubstitute-vs-moq-a-quick-comparison.html
-    AddHandler _viewMock.LauncherFired, Raise.Event(Of Action)()
+    AddHandler _fakeLauncherView.LauncherFired, Raise.Event(Of Action)()
 
     Assert.AreEqual(_launchResult, LAUNCH_RESULT.EXTERNAL_ACTION_LAUNCHED)
 
   End Sub
 
   <Test()>
-  Public Sub testSuccessfulInternalLaunch()
+  Public Sub LauncherFired_ValidInternalLauncherPresenter_ActionLaunched()
 
     ' Passing in a URL will see Process.Start() returning nothing without throwing an exception.
 
-    _launcherPresenter = New LauncherPresenter(_viewMock, _internalModelMock)
+    _launcherPresenter = New LauncherPresenter(_fakeLauncherView, _fakeInternalModel)
 
     ' See: http://programmaticallyspeaking.com/nsubstitute-vs-moq-a-quick-comparison.html
-    AddHandler _viewMock.LauncherFired, Raise.Event(Of Action)()
+    AddHandler _fakeLauncherView.LauncherFired, Raise.Event(Of Action)()
 
     Assert.AreEqual(_launchResult, LAUNCH_RESULT.INTERNAL_ACTION_LAUNCHED)
 
   End Sub
 
   <Test()>
-  Public Sub testSecurityBreachExternalLaunch()
+  Public Sub LauncherFired_ValidExternalLauncherPresenter_SecurityMessageShown()
 
     Dim untouchableFilename = Guid.NewGuid().ToString
     Dim premissions = New FileIOPermission(FileIOPermissionAccess.NoAccess, "C:\" + untouchableFilename)
@@ -163,14 +163,14 @@ Public Class TestLauncherPresenter
       FileUtilityCollection.GetTempPath
     )
 
-    _externalModelMock.LaunchAction.Returns(_errorLaunchAction)
+    _fakeExternalModel.LaunchAction.Returns(_errorLaunchAction)
 
     premissions.PermitOnly()
 
-    _launcherPresenter = New LauncherPresenter(_viewMock, _externalModelMock, _errorViewMock, _securityViewMock)
+    _launcherPresenter = New LauncherPresenter(_fakeLauncherView, _fakeExternalModel, _fakeErrorView, _fakeSecurityView)
 
     ' See: http://programmaticallyspeaking.com/nsubstitute-vs-moq-a-quick-comparison.html
-    AddHandler _viewMock.LauncherFired, Raise.Event(Of Action)()
+    AddHandler _fakeLauncherView.LauncherFired, Raise.Event(Of Action)()
 
     CodeAccessPermission.RevertPermitOnly()
 
@@ -179,19 +179,19 @@ Public Class TestLauncherPresenter
   End Sub
 
   <Test()>
-  Public Sub testErrorExternalLaunch()
+  Public Sub LauncherFired_ValidExternalLauncherPresenter_ErrorMessageShown()
 
     _errorLaunchAction = New ExternalLaunchAction(
       Guid.NewGuid().ToString,
       FileUtilityCollection.GetTempPath
     )
 
-    _externalModelMock.LaunchAction.Returns(_errorLaunchAction)
+    _fakeExternalModel.LaunchAction.Returns(_errorLaunchAction)
 
-    _launcherPresenter = New LauncherPresenter(_viewMock, _externalModelMock, _errorViewMock, _securityViewMock)
+    _launcherPresenter = New LauncherPresenter(_fakeLauncherView, _fakeExternalModel, _fakeErrorView, _fakeSecurityView)
 
     ' See: http://programmaticallyspeaking.com/nsubstitute-vs-moq-a-quick-comparison.html
-    AddHandler _viewMock.LauncherFired, Raise.Event(Of Action)()
+    AddHandler _fakeLauncherView.LauncherFired, Raise.Event(Of Action)()
 
     Assert.AreEqual(_launchResult, LAUNCH_RESULT.ERROR_MESSAGE_SHOWN)
   End Sub

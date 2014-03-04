@@ -14,14 +14,14 @@ Imports Griffith.Ari.Launcher.View
 Public Class TestLauncherModel
 
   Private _launcher As LauncherModel
-  Private _launchActionMock As ILaunchAction
+  Private _fakeLaunchAction As ILaunchAction
 
   Private Shared _viewConfig As ILauncherConfig = New TestLauncherViewConfig()
 
   <SetUp()>
   Public Sub Setup()
 
-    _launchActionMock = Substitute.For(Of ILaunchAction)()
+    _fakeLaunchAction = Substitute.For(Of ILaunchAction)()
 
     _launcher = New LauncherModel
 
@@ -32,7 +32,7 @@ Public Class TestLauncherModel
   End Sub
 
   <Test()>
-  Public Sub testShortNameInitial()
+  Public Sub ShortName_InitialProperties_ValueNothing()
     Assert.AreEqual(
       Nothing,
       _launcher.ShortName
@@ -40,7 +40,7 @@ Public Class TestLauncherModel
   End Sub
 
   <Test()>
-  Public Sub testShortNameUpdate()
+  Public Sub ShortName_UpdateProperties_ValueMatches()
     Dim newShortName = "Escape from the farty-pants zone at 'Ludicrous Speed'!"
 
     _launcher.ShortName = newShortName
@@ -52,7 +52,7 @@ Public Class TestLauncherModel
   End Sub
 
   <Test()>
-  Public Sub testDescriptionInitial()
+  Public Sub Description_InitialProperties_ValueNothing()
     Assert.AreEqual(
       Nothing,
       _launcher.Description
@@ -60,7 +60,7 @@ Public Class TestLauncherModel
   End Sub
 
   <Test()>
-  Public Sub testDescriptionUpdate()
+  Public Sub Description_UpdateProperties_ValueMatches()
     Dim newDescription = "howdydoody!"
 
     _launcher.Description = newDescription
@@ -72,7 +72,7 @@ Public Class TestLauncherModel
   End Sub
 
   <Test()>
-  Public Sub testIconInitial()
+  Public Sub Icon_InitialProperties_ValueNothing()
     Assert.AreEqual(
       Nothing,
       _launcher.Icon
@@ -80,7 +80,7 @@ Public Class TestLauncherModel
   End Sub
 
   <Test()>
-  Public Sub testIconUpdate()
+  Public Sub Icon_UpdateProperties_ValueMatches()
     _launcher.Icon = _viewConfig.DefaultIcon
 
     Assert.AreEqual(
@@ -90,7 +90,7 @@ Public Class TestLauncherModel
   End Sub
 
   <Test()>
-  Public Sub testLaunchActionInitial()
+  Public Sub LaunchAction_InitialProperties_ValueNothing()
     Assert.AreEqual(
       Nothing,
       _launcher.LaunchAction
@@ -98,14 +98,13 @@ Public Class TestLauncherModel
   End Sub
 
   <Test()>
-  Public Sub testLaunchActionUpdate()
-    _launcher.LaunchAction = _launchActionMock
+  Public Sub LaunchAction_UpdateProperties_ValueMatches()
+    _launcher.LaunchAction = _fakeLaunchAction
 
     Assert.AreEqual(
-      _launchActionMock,
+      _fakeLaunchAction,
       _launcher.LaunchAction
     )
   End Sub
 
 End Class
-
