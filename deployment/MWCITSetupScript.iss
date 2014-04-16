@@ -6,7 +6,6 @@
 #define MyShortAppName "MWCIT"
 #define MyLongAppName "Murrumbidgee Wetlands Condition Indicator Tool"
 
-#define MyAppVersion "1.0.1"
 #define MyAppPublisher "Australia Rivers Institute, Griffith University"
 #define MyAppURL "http://www.griffith.edu.au/environment-planning-architecture/australian-rivers-institute"
 
@@ -20,16 +19,21 @@
 #define MWCIT_SourceBaseDir ".."
 #define MWCIT_SourceBuildDir MWCIT_SourceBaseDir + "\source\MWCIT\bin\x86\Release"
 #define MWCIT_Executable MyShortAppName + ".exe"
+#define MWCIT_Executable_BuildPath MWCIT_SourceBuildDir + "\" + MWCIT_Executable
+
+#define FullAppVersion GetFileVersion(MWCIT_Executable_BuildPath)
+#define StripBuild(str VerStr) Copy(VerStr, 1, RPos(".", VerStr)-1)
+#define MyAppVersion StripBuild(FullAppVersion)
 
 ; MWRD file defines
 
 #define MWRD_SourceBaseDir BaseItemDir + "MWRD"
-#define MWRD_SourceBuildDir MWRD_SourceBaseDir + "\source\MCADecision\bin\x86\Release"
+#define MWRD_SourceBuildDir MWRD_SourceBaseDir + "\source\MRDBTools\bin\Release"
 #define MWRD_SourceDeployDataDir MWRD_SourceBaseDir + DeployDir
 
-#define MWRD_AddonBase "MCADecision"
+#define MWRD_AddonBase "MRDBTools"
 #define MWRD_AddonDll MWRD_AddonBase + ".dll"
-#define MWRD_AddonTlb MWRD_AddonBase + ".tlb"
+#define MWRD_AddonTlb MWRD_AddonBase + ".esriAddIn"
 
 ; MWAD file defines
 

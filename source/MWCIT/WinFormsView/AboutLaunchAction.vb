@@ -12,11 +12,13 @@ Imports Griffith.Ari.Launcher.View
 Public Class AboutLaunchAction
   Implements IAboutlLaunchActionView
 
+  Private Shared PRODUCT_DELIMITER() As Char = New Char() {"."c}
+
   Public Sub Show() Implements Griffith.Ari.Launcher.View.IInternalLaunchActionView.Show
     Dim sha256Key = AssemblyUtiityCollection.RetrieveEntryAssemblySHA256AsString()
 
     MessageBox.Show(
-      "Copyright in the software that comprises the MWCIT is the property of Australian Rivers Institute, " +
+      "Copyright in the software that comprises the " + getAppName() + " is the property of Australian Rivers Institute, " +
       "Griffith University, Australia (ARI). " +
        Environment.NewLine + Environment.NewLine +
       "The Crown in right of the Australian Government and the State of New South Wales is granted an " +
@@ -30,10 +32,23 @@ Public Class AboutLaunchAction
        "to any third party outside the Murrumbidgee Catchment Management Authority who may use or rely upon this software." +
         Environment.NewLine + Environment.NewLine + "SHA-256 Verification Key: " +
         Environment.NewLine + Environment.NewLine + sha256Key,
-      "About MWCIT",
+      "About " + getAppName() + " " + getVersionString(),
     MessageBoxButtons.OK,
     MessageBoxIcon.Information
     )
   End Sub
+
+  Private Function getAppName() As String
+    Return Application.ProductName.Split(PRODUCT_DELIMITER)(0)
+  End Function
+
+  Private Function getVersionString() As String
+    Dim versionData As String()
+    versionData = Application.ProductVersion.Split(PRODUCT_DELIMITER)
+    Return String.Format(
+      "{0}.{1}.{2}",
+      versionData(0), versionData(1), versionData(2)
+    )
+  End Function
 
 End Class
