@@ -1,5 +1,5 @@
 # Murrumbidgee Wetland Condition Indicator Tool
-## Release 1.0 - 03/12/2013
+## Release 1.03 - 17/04/2014
 
 This application is a general-purpose utility for loosely integrating a number of 
 other tools and data-sets on behalf of the Murrumbidgee Catchment Management Authority.
@@ -23,7 +23,7 @@ please consult the [design document](https://googledrive.com/host/0B7T5Ops6C7WQb
   - NUnit 2.6.3 and 
   - NSubstitute 2.6.3
 
-- No attempt has been made to run or develop the software outside of the above environemnt. 
+- No attempt has been made to run or develop the software outside of the above environment. 
 
 - The deployment script makes reference to material not owned by the authors of this software. 
   The source-code repository does not contains 3rd-party material where permission to

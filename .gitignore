@@ -4,3 +4,4 @@ obj
 bin
 /source/TestMWCIT.VisualState.xml
 /deployment/Output/*
+*.*~
