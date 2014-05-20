@@ -27,21 +27,19 @@
 
 ; MWRD file defines
 
-#define MWRD_SourceBaseDir BaseItemDir + "MWRD"
-#define MWRD_SourceBuildDir MWRD_SourceBaseDir + "\source\MRDBTools\bin\Release"
+#define MWRD "MWRD"
+#define MWRD_Tools MWRD + "Tools"
+
+#define MWRD_SourceBaseDir BaseItemDir + MWRD
+#define MWRD_SourceBuildDir MWRD_SourceBaseDir + "\source\" + MWRD_TOOLS + "\bin\Release"
 #define MWRD_SourceDeployDataDir MWRD_SourceBaseDir + DeployDir
 
-#define MWRD_AddonBase "MRDBTools"
-#define MWRD_AddonDll MWRD_AddonBase + ".dll"
-#define MWRD_AddonTlb MWRD_AddonBase + ".esriAddIn"
+#define MWRD_AddonDll MWRD_Tools + ".dll"
+#define MWRD_AddonTlb MWRD_Tools + ".esriAddIn"
 
 ; MWAD file defines
 
 #define MWAD_SourceDeployDataDir BaseItemDir + "MWAD" + DeployDir
-
-; MKVCA file defines
-
-#define MKVCA_SourceDeployDataDir BaseItemDir + "MKVCA" + DeployDir
 
 ; MWRD addon registration requires admin priviliges.
 PrivilegesRequired=admin     
@@ -75,7 +73,6 @@ Name: "custom"; Description: "Custom installation"; Flags: iscustom
 Name: MWCIT_Tools; Description: The MWCIT integrated toolset; Types: full custom; Flags: fixed
 Name: MWRD_Data;  Description:  Murrumbidgee Wetland Relational Database;  Types: full
 Name: MWAD_Data;  Description: Murrumbidgee Water Asset Database; Types: full
-Name: MKVCA_Data;  Description: Murrumbidgee Keith Vegetation Class Allocation Map; Types: full
 
 [Dirs]
 Name: {code:GetDataDir}; Check: not DataDirExists; Flags: uninsneveruninstall; Permissions: users-modify
@@ -87,7 +84,6 @@ Source: "{#MWRD_SourceBuildDir}\{#MWRD_AddonDll}"; DestDir: "{app}"; Components:
 Source: "{#MWRD_SourceBuildDir}\{#MWRD_AddonTlb}"; DestDir: "{app}"; Components: MWCIT_Tools; Flags: ignoreversion
 Source: "{#MWRD_SourceDeployDataDir}\*"; DestDir: "{code:GetDataDir}\MWRD\"; Components: MWRD_Data; Flags: confirmoverwrite recursesubdirs uninsneveruninstall
 Source: "{#MWAD_SourceDeployDataDir}\*"; DestDir: "{code:GetDataDir}\MWAD\"; Components: MWAD_Data; Flags: confirmoverwrite recursesubdirs uninsneveruninstall
-Source: "{#MKVCA_SourceDeployDataDir}\*"; DestDir: "{code:GetDataDir}\MKVCA\"; Components: MKVCA_Data; Flags: confirmoverwrite recursesubdirs uninsneveruninstall
 
 [Tasks]
 Name: desktopicon; Description: "Create a &desktop icon"; 
