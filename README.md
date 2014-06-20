@@ -1,5 +1,5 @@
 # Murrumbidgee Wetland Condition Indicator Tool
-## Release 1.1 - 19/05/2014
+## Release 1.2 - 28/05/2014
 
 This application is a general-purpose utility for loosely integrating a number of 
 other tools and data-sets on behalf of the Murrumbidgee Catchment Management Authority.

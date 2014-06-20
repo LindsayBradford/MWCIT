@@ -75,21 +75,22 @@ Name: MWRD_Data;  Description:  Murrumbidgee Wetland Relational Database;  Types
 Name: MWAD_Data;  Description: Murrumbidgee Water Asset Database; Types: full
 
 [Dirs]
-Name: {code:GetDataDir}; Check: not DataDirExists; Flags: uninsneveruninstall; Permissions: users-modify
+Name: {code:GetDataDir}; Check: not DataDirExists; Flags: uninsneveruninstall; Permissions: users-full
 
 [Files]
 Source: "{#MWCIT_SourceBuildDir}\{#MWCIT_Executable}"; DestDir: "{app}"; Components: MWCIT_Tools; Flags: ignoreversion
 
 Source: "{#MWRD_SourceBuildDir}\{#MWRD_AddonDll}"; DestDir: "{app}"; Components: MWCIT_Tools; Flags: ignoreversion
 Source: "{#MWRD_SourceBuildDir}\{#MWRD_AddonTlb}"; DestDir: "{app}"; Components: MWCIT_Tools; Flags: ignoreversion
-Source: "{#MWRD_SourceDeployDataDir}\*"; DestDir: "{code:GetDataDir}\MWRD\"; Components: MWRD_Data; Flags: confirmoverwrite recursesubdirs uninsneveruninstall
-Source: "{#MWAD_SourceDeployDataDir}\*"; DestDir: "{code:GetDataDir}\MWAD\"; Components: MWAD_Data; Flags: confirmoverwrite recursesubdirs uninsneveruninstall
+Source: "{#MWRD_SourceDeployDataDir}\*"; DestDir: "{code:GetDataDir}\MWRD\"; Components: MWRD_Data; Excludes: "*.LDF"; Permissions: users-full; Flags: confirmoverwrite recursesubdirs uninsneveruninstall
+Source: "{#MWAD_SourceDeployDataDir}\*"; DestDir: "{code:GetDataDir}\MWAD\"; Components: MWAD_Data; Permissions: users-full; Flags: confirmoverwrite recursesubdirs uninsneveruninstall
 
 [Tasks]
 Name: desktopicon; Description: "Create a &desktop icon"; 
 
 [Icons]
 Name: "{group}\{#MyShortAppName}"; Filename: "{app}\{#MWCIT_Executable}"; Components: MWCIT_Tools;
+Name: "{group}\Uninstall {#MyShortAppName}"; Filename: "{uninstallexe}"; Components: MWCIT_Tools;
 Name: "{commondesktop}\{#MyShortAppName}"; Filename: "{app}\{#MWCIT_Executable}"; Components: MWCIT_Tools; Tasks: desktopicon;
 
 [INI]

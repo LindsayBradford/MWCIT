@@ -10,9 +10,9 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("MWCIT")> 
 <Assembly: AssemblyDescription("The bootstrap assembly of MWCIT")> 
-<Assembly: AssemblyCompany("Murrumbidgee Catchment Management Authority")> 
+<Assembly: AssemblyCompany("NSW Riverina Local Land Services")> 
 <Assembly: AssemblyProduct("MWCIT.WinForms")> 
-<Assembly: AssemblyCopyright("Copyright ©  2013, Australian Rivers Institute")> 
+<Assembly: AssemblyCopyright("Copyright ©  2014, Australian Rivers Institute")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.1.0.0")> 
-<Assembly: AssemblyFileVersion("1.1.0.0")> 
+<Assembly: AssemblyVersion("1.2.0.0")> 
+<Assembly: AssemblyFileVersion("1.2.0.0")> 

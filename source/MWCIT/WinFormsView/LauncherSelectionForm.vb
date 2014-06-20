@@ -62,8 +62,9 @@ Public NotInheritable Class LauncherSelectionForm
         Me.DynamicControlsPanel.MinimumSize.Height + Me.ToolStripStatusLabel.Size.Height + 40
       )
 
+
     Me.Size = New Size(
-      Me.PreferredSize.Width,
+      Me.DynamicControlsPanel.PreferredSize.Width + Me.DefaultMargin.Size.Width * 2,
       Me.MinimumSize.Height
     )
 
