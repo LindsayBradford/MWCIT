@@ -1,7 +1,10 @@
-﻿''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-' Copyright (c) 2013, Australian Rivers Institute, Griffith University.              '
-' Author: Lindsay Bradford                                                           '
-' Created as part of the MWCIT project                                               '
+﻿''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Copyright (c) 2013, Australian Rivers Institute, Griffith University and other contributors. '
+'                                                                                              '
+' This program and the accompanying materials are made available under the terms of the        '
+' BSD 3-Clause licence which accompanies this distribution, and is available at                '
+' http://opensource.org/licenses/BSD-3-Clause                                                  '
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Imports System.Reflection
 Imports Griffith.Ari.Launcher.View

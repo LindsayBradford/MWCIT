@@ -1,7 +1,10 @@
-﻿'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-' Copyright (c) 2012, Australian Rivers Institute, Griffith University.             '
-' Created by Lindsay Bradford as part of the EFlows project, 14/06/2012 3:53:21 PM  '
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+﻿''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Copyright (c) 2013, Australian Rivers Institute, Griffith University and other contributors. '
+'                                                                                              '
+' This program and the accompanying materials are made available under the terms of the        '
+' BSD 3-Clause licence which accompanies this distribution, and is available at                '
+' http://opensource.org/licenses/BSD-3-Clause                                                  '
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Imports System.Drawing
 Imports System.IO
