@@ -89,6 +89,7 @@ Public NotInheritable Class LauncherButton
     RaiseEvent LauncherFired()
   End Sub
 
+  <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")> _
   Public Event HoveringOverLauncher(ByRef hoverDescription As String)
 
   Protected Overrides Sub OnMouseHover(e As System.EventArgs)
@@ -96,6 +97,7 @@ Public NotInheritable Class LauncherButton
     RaiseEvent HoveringOverLauncher(Me.Description)
   End Sub
 
+  <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")> _
   Public Event LeavingLauncher()
 
   Protected Overrides Sub OnMouseLeave(e As System.EventArgs)

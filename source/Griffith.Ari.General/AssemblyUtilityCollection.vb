@@ -66,10 +66,7 @@ Public Module AssemblyUtiityCollection
           FileUtilityCollection.CopyStream(resourceStream, outputStream)
           resourcePaths.Add(absoluteFilePath)
 
-          outputStream.Close()
-
         End Using 'outputStream
-        resourceStream.Close()
       End Using 'resourceStream
     Next
 
@@ -126,12 +123,9 @@ Public Module AssemblyUtiityCollection
 
           FileUtilityCollection.CopyStream(resourceStream, outputStream)
 
-          outputStream.Close()
-
           Return absoluteFilePath
 
         End Using 'outputStream
-        resourceStream.Close()
       End Using 'resourceStream
     Next
 
@@ -155,8 +149,6 @@ Public Module AssemblyUtiityCollection
     Using stream = embeddingAssembly.GetManifestResourceStream(fullPath)
 
       Dim embeddedImage = Image.FromStream(stream)
-
-      stream.Close()
 
       Return embeddedImage
     End Using
@@ -255,7 +247,6 @@ Public Module AssemblyUtiityCollection
 
       hashValue = mySHA256.ComputeHash(stream)
 
-      stream.Close()
     End Using
 
     Return hashValue

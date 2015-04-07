@@ -10,6 +10,8 @@ Imports System.IO
 Imports System.Diagnostics
 
 Imports Griffith.Ari.Launcher.View
+Imports System.Security
+Imports System.Security.Permissions
 
 ''' <summary>
 ''' A concrete implementation of ILaunchAction, designed to launch an action
@@ -58,9 +60,20 @@ Public Class ExternalLaunchAction
       )
     End If
 
+    GetExecutePermission(_action).Demand()
     Directory.SetCurrentDirectory(_workingDirectory)
     Process.Start(_action)
   End Sub
+
+  Private Function GetExecutePermission(ByVal filePath As String) As PermissionSet
+    Dim thisSet = New PermissionSet(Security.Permissions.PermissionState.None)
+    thisSet.AddPermission(
+      New SecurityPermission(SecurityPermissionFlag.Execution)
+    )
+
+    Return thisSet
+  End Function
+
 
   Private Function isValidAction() As Boolean
     ' An action with value of Nothing is interpreted as a valid 'do nothing'action

@@ -31,6 +31,7 @@ Namespace View
     Property Description As String
     Property Icon As Image
 
+    <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")> _
     Event LauncherFired As Action
 
   End Interface

@@ -92,8 +92,6 @@ Public NotInheritable Class MWCITBootstrap
 
       stream.Read(assemblyData, 0, assemblyData.Length)
 
-      stream.Close()
-
       Return Assembly.Load(assemblyData)
 
     End Using ' stream
